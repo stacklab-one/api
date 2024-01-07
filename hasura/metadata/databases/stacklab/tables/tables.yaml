@@ -1,5 +1,6 @@
 - "!include public_categories.yaml"
 - "!include public_category_tools.yaml"
+- "!include public_incidents.yaml"
 - "!include public_medias.yaml"
 - "!include public_stack_tools.yaml"
 - "!include public_stacks.yaml"

@@ -1,0 +1,17 @@
+table:
+  name: incidents
+  schema: public
+select_permissions:
+  - role: SUPER_ADMIN
+    permission:
+      columns:
+        - is_resolved
+        - description
+        - title
+        - type
+        - data
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+    comment: ""
