@@ -5,6 +5,8 @@
  * file.
  */
 
+import User from "App/Models/User";
+
 declare module "@ioc:Adonis/Core/Event" {
     /*
   |--------------------------------------------------------------------------
@@ -27,5 +29,9 @@ declare module "@ioc:Adonis/Core/Event" {
   */
     interface EventsList {
         //
+        "hydrate:tool": { toolId: string; user: User };
+        "hydrate:tools": { user: User };
+        "calculate:score": { toolId: string; user: User };
+        "calculate:scores": { user: User };
     }
 }

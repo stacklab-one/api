@@ -4,6 +4,7 @@ import ToolData from "./ToolData";
 import User from "./User";
 import Category from "./Category";
 import CategoryTool from "./CategoryTool";
+import { RepositoryResult, RepositoryService } from "App/Services/RepositoryService";
 
 export default class Tool extends BaseModel {
     @column({ isPrimary: true })
@@ -68,4 +69,11 @@ export default class Tool extends BaseModel {
 
     @hasMany(() => CategoryTool)
     public categoryTools: HasMany<typeof CategoryTool>;
+
+    public async getRepositoryData(): Promise<RepositoryResult | null> {
+        if (this.repositoryUrl === null) {
+            return null;
+        }
+        return RepositoryService.getRepositoryData(this.repositoryUrl);
+    }
 }
