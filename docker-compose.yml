@@ -1,112 +1,111 @@
-version: '3.8'
+version: "3.8"
 
 services:
-  postgres:
-    image: postgres:15
-    restart: always
-    volumes:
-      - stacklab_db_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_USER: ${PG_USER}
-      POSTGRES_PASSWORD: ${PG_PASSWORD}
-      POSTGRES_DB: ${PG_DB_NAME}
-    ports:
-      - ${PG_PORT}:5432
-    networks:
-      - stacklab-one-network
-  api:
-    container_name: api
-    restart: always
-    build:
-      context: .
-      target: dependencies
-    ports:
-      - ${PORT}:${PORT}
-      - 9229:9229
-    env_file:
-      - .env
-    networks:
-      - stacklab-one-network
-    volumes:
-      - ./:/home/node/app
-      # Uncomment the below line if you developing on MacOS
-      - /home/node/app/node_modules
-    command: dumb-init node ace serve --watch --node-args="--inspect=0.0.0.0"
-    depends_on:
-      - postgres
-  search:
-    image: getmeili/meilisearch:v1.5.0
-    container_name: search
-    environment:
-      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-masterKey}
-      - MEILI_NO_ANALYTICS=${MEILI_NO_ANALYTICS:-true}
-      - MEILI_ENV=${MEILI_ENV:-development}
-      - MEILI_LOG_LEVEL
-      - MEILI_DB_PATH=${MEILI_DB_PATH:-/data.ms}
-    ports:
-      - ${MEILI_PORT:-7700}:7700
-    networks:
-      - stacklab-one-network
-    volumes:
-      - ./data/meilisearch/data.ms:/data.ms
-    restart: always
-    depends_on:
-      - api
-  storage:
-    image: quay.io/minio/minio:RELEASE.2024-01-05T22-17-24Z
-    container_name: storage
-    environment:
-      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:-minio}
-      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:-minio123}
-    ports:
-      - ${MINIO_PORT:-9000}:9000
-      - 9001:9001
-    volumes:
-      - ./data/minio:/var/lib/minio/data
-    networks:
-      - stacklab-one-network
-    restart: unless-stopped
-    depends_on:
-      - api
-    healthcheck:
-      test: ["CMD", "mc", "ready", "local"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    command: minio server start --console-address ":9001"
-  graphql-engine:
-    image: hasura/graphql-engine:v2.35.0
-    ports:
-      - "8080:8080"
-    restart: always
-    networks:
-      - stacklab-one-network
-    environment:
-      ## postgres database to store Hasura metadata
-      HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:${PG_PORT}/${PG_DB_NAME}
-      ## this env var can be used to add the above postgres database to Hasura as a data source. this can be removed/updated based on your needs
-      PG_DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:${PG_PORT}/${PG_DB_NAME}
-      ## enable the console served by server
-      HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
-      ## enable debugging mode. It is recommended to disable this in production
-      HASURA_GRAPHQL_DEV_MODE: "true"
-      HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
-      ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
-      HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
-      ## uncomment next line to set an admin secret
-      HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET:-changeme}
+    postgres:
+        image: postgres:15
+        restart: always
+        volumes:
+            - stacklab_db_data:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: ${PG_USER}
+            POSTGRES_PASSWORD: ${PG_PASSWORD}
+            POSTGRES_DB: ${PG_DB_NAME}
+        ports:
+            - ${PG_PORT}:5432
+        networks:
+            - stacklab-one-network
+    api:
+        container_name: api
+        restart: always
+        build:
+            context: .
+            target: dependencies
+        ports:
+            - ${PORT}:${PORT}
+            - 9229:9229
+        env_file:
+            - .env
+        networks:
+            - stacklab-one-network
+        volumes:
+            - ./:/home/node/app
+            # Uncomment the below line if you developing on MacOS
+            - /home/node/app/node_modules
+        command: dumb-init node ace serve --watch --node-args="--inspect=0.0.0.0"
+        depends_on:
+            - postgres
+    search:
+        image: getmeili/meilisearch:v1.5.0
+        container_name: search
+        environment:
+            - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-masterKey}
+            - MEILI_NO_ANALYTICS=${MEILI_NO_ANALYTICS:-true}
+            - MEILI_ENV=${MEILI_ENV:-development}
+            - MEILI_LOG_LEVEL
+            - MEILI_DB_PATH=${MEILI_DB_PATH:-/data.ms}
+        ports:
+            - ${MEILI_PORT:-7700}:7700
+        networks:
+            - stacklab-one-network
+        volumes:
+            - ./data/meilisearch/data.ms:/data.ms
+        restart: always
+        depends_on:
+            - api
+    storage:
+        image: quay.io/minio/minio:RELEASE.2024-01-05T22-17-24Z
+        container_name: storage
+        environment:
+            - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:-minio}
+            - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:-minio123}
+        ports:
+            - ${MINIO_PORT:-9000}:9000
+            - 9001:9001
+        volumes:
+            - ./data/minio:/var/lib/minio/data
+        networks:
+            - stacklab-one-network
+        restart: unless-stopped
+        depends_on:
+            - api
+        healthcheck:
+            test: ["CMD", "mc", "ready", "local"]
+            interval: 5s
+            timeout: 5s
+            retries: 5
+        command: minio server start --console-address ":9001"
+    graphql-engine:
+        image: hasura/graphql-engine:v2.35.0
+        ports:
+            - "8080:8080"
+        restart: always
+        networks:
+            - stacklab-one-network
+        environment:
+            ## postgres database to store Hasura metadata
+            HASURA_GRAPHQL_METADATA_DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:${PG_PORT}/${PG_DB_NAME}
+            ## this env var can be used to add the above postgres database to Hasura as a data source. this can be removed/updated based on your needs
+            PG_DATABASE_URL: postgres://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:${PG_PORT}/${PG_DB_NAME}
+            ## enable the console served by server
+            HASURA_GRAPHQL_ENABLE_CONSOLE: "true" # set to "false" to disable console
+            ## enable debugging mode. It is recommended to disable this in production
+            HASURA_GRAPHQL_DEV_MODE: "true"
+            HASURA_GRAPHQL_ENABLED_LOG_TYPES: startup, http-log, webhook-log, websocket-log, query-log
+            ## uncomment next line to run console offline (i.e load console assets from server instead of CDN)
+            HASURA_GRAPHQL_CONSOLE_ASSETS_DIR: /srv/console-assets
+            ## uncomment next line to set an admin secret
+            HASURA_GRAPHQL_ADMIN_SECRET: ${HASURA_GRAPHQL_ADMIN_SECRET:-changeme}
 
-      HASURA_GRAPHQL_UNAUTHORIZED_ROLE: PUBLIC
+            HASURA_GRAPHQL_UNAUTHORIZED_ROLE: PUBLIC
 
-      HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "naming_convention"
-      HASURA_GRAPHQL_DEFAULT_NAMING_CONVENTION: "graphql-default"
-    depends_on:
-      - postgres
-      - api
+            HASURA_GRAPHQL_EXPERIMENTAL_FEATURES: "naming_convention"
+            HASURA_GRAPHQL_DEFAULT_NAMING_CONVENTION: "graphql-default"
+        depends_on:
+            - postgres
+            - api
 volumes:
-  stacklab_db_data:
-
+    stacklab_db_data:
 
 networks:
-  stacklab-one-network:
-    driver: bridge
+    stacklab-one-network:
+        driver: bridge

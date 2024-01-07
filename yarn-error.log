@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /opt/yarn-v1.22.19/bin/yarn.js reseed
+  /usr/local/bin/node /opt/yarn-v1.22.19/bin/yarn.js add @oktokit/rest
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -14,12 +14,17 @@ Platform:
   linux arm64
 
 Trace: 
-  SyntaxError: /home/node/app/package.json: Expected ',' or '}' after property value in JSON at position 325
-      at JSON.parse (<anonymous>)
-      at /opt/yarn-v1.22.19/lib/cli.js:1629:59
-      at Generator.next (<anonymous>)
-      at step (/opt/yarn-v1.22.19/lib/cli.js:310:30)
-      at /opt/yarn-v1.22.19/lib/cli.js:321:13
+  Error: https://registry.yarnpkg.com/@oktokit%2frest: Not found
+      at params.callback [as _callback] (/opt/yarn-v1.22.19/lib/cli.js:66145:18)
+      at self.callback (/opt/yarn-v1.22.19/lib/cli.js:140890:22)
+      at Request.emit (node:events:514:28)
+      at Request.<anonymous> (/opt/yarn-v1.22.19/lib/cli.js:141862:10)
+      at Request.emit (node:events:514:28)
+      at IncomingMessage.<anonymous> (/opt/yarn-v1.22.19/lib/cli.js:141784:12)
+      at Object.onceWrapper (node:events:628:28)
+      at IncomingMessage.emit (node:events:526:35)
+      at endReadableNT (node:internal/streams/readable:1589:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
 npm manifest: 
   {
@@ -32,7 +37,7 @@ npm manifest:
           "start": "node server.js",
           "test": "node ace test",
           "lint": "eslint . --ext=.ts",
-          "format": "prettier --write ."
+          "format": "prettier --write .",
           "reseed": "node ace migration:refresh && node ace db:seed"
       },
       "eslintConfig": {

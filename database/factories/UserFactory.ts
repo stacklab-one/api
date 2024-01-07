@@ -1,7 +1,7 @@
 import User from "App/Models/User";
 import Factory from "@ioc:Adonis/Lucid/Factory";
 import Hash from "@ioc:Adonis/Core/Hash";
-import { AuthLevel } from "App/Enumts/AuthLevel";
+import { AuthLevel } from "App/Enums/AuthLevel";
 
 export default Factory.define(User, async ({ faker }) => {
     const authLevels = [AuthLevel.USER, AuthLevel.EDITOR, AuthLevel.ADMIN, AuthLevel.SUPER_ADMIN];
