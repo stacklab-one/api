@@ -1,5 +1,5 @@
 import BaseSchema from "@ioc:Adonis/Lucid/Schema";
-import { AuthLevel } from "App/Enumts/AuthLevel";
+import { AuthLevel } from "App/Enums/AuthLevel";
 
 export default class extends BaseSchema {
     protected tableName = "users";
@@ -13,6 +13,7 @@ export default class extends BaseSchema {
             table.string("email").notNullable().unique();
             table.string("password").notNullable();
             table.integer("auth_level").notNullable().defaultTo(AuthLevel.USER);
+            table.string("remember_me_token").nullable();
 
             /**
              * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

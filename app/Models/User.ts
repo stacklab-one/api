@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { BaseModel, HasMany, HasOne, column, hasMany, hasOne } from "@ioc:Adonis/Lucid/Orm";
-import { AuthLevel } from "App/Enumts/AuthLevel";
+import { AuthLevel } from "App/Enums/AuthLevel";
 import Tool from "./Tool";
 import Media from "./Media";
 import Stack from "./Stack";
