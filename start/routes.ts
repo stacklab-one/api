@@ -18,8 +18,18 @@
 |
 */
 
+import "./routes/api/v1/routes";
+
+import Application from "@ioc:Adonis/Core/Application";
 import Route from "@ioc:Adonis/Core/Route";
+import Logger from "@ioc:Adonis/Core/Logger";
 
 Route.get("/", async () => {
     return { hello: "world" };
 });
+
+if (Application.inDev) {
+    Route.get("/test", "TestController.index");
+}
+
+Logger.info("Registered Routes");
