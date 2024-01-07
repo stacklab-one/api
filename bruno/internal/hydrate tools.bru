@@ -1,0 +1,15 @@
+meta {
+  name: hydrate tools
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{host}}/api/v1/internals/hydrateTools
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

@@ -1,0 +1,15 @@
+meta {
+  name: hydrateTool2
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{host}}/api/v1/internals/hydrateTool/d5a171f8-2d0c-4399-b16f-a4e25d9270a7
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
