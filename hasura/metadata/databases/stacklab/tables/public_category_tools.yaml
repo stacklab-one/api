@@ -1,0 +1,21 @@
+table:
+  name: category_tools
+  schema: public
+object_relationships:
+  - name: category
+    using:
+      foreign_key_constraint_on: category_id
+  - name: tool
+    using:
+      foreign_key_constraint_on: tool_id
+select_permissions:
+  - role: PUBLIC
+    permission:
+      columns:
+        - created_at
+        - updated_at
+        - category_id
+        - id
+        - tool_id
+      filter: {}
+    comment: ""

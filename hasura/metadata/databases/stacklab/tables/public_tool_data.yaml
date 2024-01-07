@@ -1,0 +1,21 @@
+table:
+  name: tool_data
+  schema: public
+object_relationships:
+  - name: tool
+    using:
+      foreign_key_constraint_on: tool_id
+select_permissions:
+  - role: PUBLIC
+    permission:
+      columns:
+        - downloads
+        - forks
+        - open_issues
+        - stars
+        - created_at
+        - updated_at
+        - id
+        - tool_id
+      filter: {}
+    comment: ""

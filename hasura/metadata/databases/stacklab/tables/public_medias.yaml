@@ -1,0 +1,27 @@
+table:
+  name: medias
+  schema: public
+array_relationships:
+  - name: users
+    using:
+      foreign_key_constraint_on:
+        column: profile_picture_id
+        table:
+          name: users
+          schema: public
+select_permissions:
+  - role: PUBLIC
+    permission:
+      columns:
+        - file_name
+        - file_name_disk
+        - file_path
+        - file_type
+        - file_size
+        - height
+        - width
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+    comment: ""

@@ -1,0 +1,11 @@
+- name: stacklab
+  kind: postgres
+  configuration:
+    connection_info:
+      database_url:
+        from_env: PG_DATABASE_URL
+      isolation_level: read-committed
+      use_prepared_statements: false
+  customization:
+    naming_convention: graphql-default
+  tables: "!include stacklab/tables/tables.yaml"

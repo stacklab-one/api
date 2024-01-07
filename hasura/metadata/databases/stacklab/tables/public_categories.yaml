@@ -1,0 +1,23 @@
+table:
+  name: categories
+  schema: public
+array_relationships:
+  - name: categoryTools
+    using:
+      foreign_key_constraint_on:
+        column: category_id
+        table:
+          name: category_tools
+          schema: public
+select_permissions:
+  - role: PUBLIC
+    permission:
+      columns:
+        - description
+        - name
+        - tags
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+    comment: ""

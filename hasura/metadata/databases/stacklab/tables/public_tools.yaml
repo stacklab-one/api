@@ -1,0 +1,54 @@
+table:
+  name: tools
+  schema: public
+object_relationships:
+  - name: user
+    using:
+      foreign_key_constraint_on: created_by
+  - name: userByUpdatedBy
+    using:
+      foreign_key_constraint_on: updated_by
+array_relationships:
+  - name: categoryTools
+    using:
+      foreign_key_constraint_on:
+        column: tool_id
+        table:
+          name: category_tools
+          schema: public
+  - name: stackTools
+    using:
+      foreign_key_constraint_on:
+        column: tool_id
+        table:
+          name: stack_tools
+          schema: public
+  - name: toolData
+    using:
+      foreign_key_constraint_on:
+        column: tool_id
+        table:
+          name: tool_data
+          schema: public
+select_permissions:
+  - role: PUBLIC
+    permission:
+      columns:
+        - has_free_version
+        - is_archived
+        - is_self_hostable
+        - description
+        - documentation_url
+        - repository_url
+        - name
+        - website_url
+        - og_data
+        - tags
+        - created_at
+        - hydrated_at
+        - updated_at
+        - created_by
+        - id
+        - updated_by
+      filter: {}
+    comment: ""

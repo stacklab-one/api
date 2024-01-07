@@ -1,0 +1,40 @@
+table:
+  name: users
+  schema: public
+object_relationships:
+  - name: media
+    using:
+      foreign_key_constraint_on: profile_picture_id
+array_relationships:
+  - name: stacks
+    using:
+      foreign_key_constraint_on:
+        column: author_id
+        table:
+          name: stacks
+          schema: public
+  - name: tools
+    using:
+      foreign_key_constraint_on:
+        column: created_by
+        table:
+          name: tools
+          schema: public
+  - name: toolsByUpdatedBy
+    using:
+      foreign_key_constraint_on:
+        column: updated_by
+        table:
+          name: tools
+          schema: public
+select_permissions:
+  - role: PUBLIC
+    permission:
+      columns:
+        - created_at
+        - id
+        - profile_picture_id
+        - updated_at
+        - username
+      filter: {}
+    comment: ""
