@@ -9,5 +9,6 @@ export default Factory.define(Tool, ({ faker }) => {
         websiteUrl: faker.helpers.arrayElement(toolWebsiteUrls),
         repositoryUrl: faker.helpers.arrayElement(toolRepositoryUrls),
         description: faker.lorem.paragraph(),
+        tags: JSON.stringify(faker.lorem.words(3).split(" ")) as any as string[],
     };
 }).build();

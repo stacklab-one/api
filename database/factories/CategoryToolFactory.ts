@@ -1,8 +1,10 @@
-import CategoryTools from 'App/Models/CategoryTools'
-import Factory from '@ioc:Adonis/Lucid/Factory'
+import Factory from "@ioc:Adonis/Lucid/Factory";
+import CategoryTool from "App/Models/CategoryTool";
+import CategoryToolSeeder from "Database/seeders/CategoryTool";
 
-export default Factory.define(CategoryTools, ({ faker }) => {
-  return {
-    //
-  }
-}).build()
+export default Factory.define(CategoryTool, ({ faker }) => {
+    return {
+        toolId: faker.helpers.arrayElement(CategoryToolSeeder.toolIds),
+        categoryId: faker.helpers.arrayElement(CategoryToolSeeder.categoryIds),
+    };
+}).build();

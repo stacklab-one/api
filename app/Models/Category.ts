@@ -1,6 +1,5 @@
 import { DateTime } from "luxon";
 import { BaseModel, HasMany, column, hasMany } from "@ioc:Adonis/Lucid/Orm";
-import Tool from "./Tool";
 import CategoryTool from "./CategoryTool";
 
 export default class Category extends BaseModel {

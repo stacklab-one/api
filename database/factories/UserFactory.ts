@@ -5,11 +5,12 @@ import { AuthLevel } from "App/Enumts/AuthLevel";
 
 export default Factory.define(User, async ({ faker }) => {
     const authLevels = [AuthLevel.USER, AuthLevel.EDITOR, AuthLevel.ADMIN, AuthLevel.SUPER_ADMIN];
+    const username = faker.internet.userName();
 
     return {
         //
-        username: faker.internet.userName(),
-        email: faker.internet.email(),
+        username,
+        email: `simon+${username}@stacklab.one`,
         password: await Hash.make("1234"),
         authLevel: faker.helpers.arrayElement(authLevels),
     };
