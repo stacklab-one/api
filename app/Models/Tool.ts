@@ -29,6 +29,12 @@ export default class Tool extends BaseModel {
     public tags: string[];
 
     @column()
+    public license: string | null;
+
+    @column()
+    public iconIdentifier: string | null;
+
+    @column()
     public hasFreeVersion: boolean;
 
     @column()

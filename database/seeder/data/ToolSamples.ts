@@ -204,3 +204,27 @@ export const toolTags: string[] = [
     "mobile",
     "desktop",
 ];
+
+export const toolLicenses = ["MIT", "Apache-2.0", "GPL-3.0", "BSD-3-Clause", "BSD-2-Clause", "LGPL-3.0", "LGPL-2.1"];
+
+export const toolIconIdentifier = [
+    "vscode-icons:file-type-docker2",
+    "vscode-icons:file-type-graphql",
+    "vscode-icons:file-type-vue",
+    "vscode-icons:file-type-reactjs",
+    "vscode-icons:file-type-angular",
+    "vscode-icons:file-type-ionic",
+    "vscode-icons:file-type-node",
+    "vscode-icons:file-type-nestjs",
+    "vscode-icons:file-type-nginx",
+    "vscode-icons:file-type-red",
+    "vscode-icons:file-type-tailwind",
+    "vscode-icons:file-type-terraform",
+    "vscode-icons:file-type-mysql",
+    "vscode-icons:file-type-mariadb",
+    "vscode-icons:file-type-sqlite",
+    "vscode-icons:file-type-kotlin",
+    "vscode-icons:file-type-nuxt",
+    "vscode-icons:file-type-light-next",
+    "vscode-icons:file-type-git",
+];

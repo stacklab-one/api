@@ -34,21 +34,23 @@ select_permissions:
   - role: PUBLIC
     permission:
       columns:
-        - has_free_version
-        - is_archived
-        - is_self_hostable
+        - created_at
+        - created_by
         - description
         - documentation_url
-        - repository_url
-        - name
-        - website_url
-        - og_data
-        - tags
-        - created_at
+        - has_free_version
         - hydrated_at
-        - updated_at
-        - created_by
+        - icon_identifier
         - id
+        - is_archived
+        - is_self_hostable
+        - license
+        - name
+        - og_data
+        - repository_url
+        - tags
+        - updated_at
         - updated_by
+        - website_url
       filter: {}
     comment: ""
