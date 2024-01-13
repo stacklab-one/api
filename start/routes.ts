@@ -30,6 +30,7 @@ Route.get("/", async () => {
 
 if (Application.inDev) {
     Route.get("/test", "TestController.index");
+    Route.post("/test/fileUpload", "TestController.upload");
 }
 
 Logger.info("Registered Routes");

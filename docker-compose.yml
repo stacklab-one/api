@@ -56,8 +56,8 @@ services:
         image: quay.io/minio/minio:RELEASE.2024-01-05T22-17-24Z
         container_name: storage
         environment:
-            - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:-minio}
-            - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:-minio123}
+            - MINIO_ROOT_USER=${MINIO_ACCESS_KEY:-minio}
+            - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY:-minio123}
         ports:
             - ${MINIO_PORT:-9000}:9000
             - 9001:9001
@@ -73,7 +73,7 @@ services:
             interval: 5s
             timeout: 5s
             retries: 5
-        command: minio server start --console-address ":9001"
+        command: minio server /var/lib/minio/data --console-address ":9001"
     graphql-engine:
         image: hasura/graphql-engine:v2.35.0
         ports:

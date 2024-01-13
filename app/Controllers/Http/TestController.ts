@@ -1,5 +1,8 @@
 import type { HttpContextContract } from "@ioc:Adonis/Core/HttpContext";
+import { MediaContext } from "App/Enums/MediaContext";
+import Media from "App/Models/Media";
 import Tool from "App/Models/Tool";
+import { FileService } from "App/Services/FileService";
 import { RepositoryResult } from "App/Services/RepositoryService";
 
 export default class TestController {
@@ -17,5 +20,21 @@ export default class TestController {
             dataCount: repositoryDatas.length,
             data: repositoryDatas,
         });
+    }
+
+    public async upload({ request, response }: HttpContextContract) {
+        const file = request.file("file");
+        const context = request.input("context");
+        if (!context) {
+            return response.badRequest("No context provided");
+        }
+        const validContexts = Object.keys(MediaContext).filter((key) => !isNaN(Number(key)));
+        if (!validContexts.includes(context)) {
+            return response.badRequest("Invalid context");
+        }
+        if (!file) {
+            return response.badRequest("No file provided");
+        }
+        return await FileService.uploadFile(file, context as MediaContext);
     }
 }

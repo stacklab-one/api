@@ -7,10 +7,10 @@ export default class extends BaseSchema {
         this.schema.createTable(this.tableName, (table) => {
             table.uuid("id").primary().defaultTo(this.raw("uuid_generate_v4()"));
             table.string("file_name").notNullable();
-            table.string("file_path").notNullable();
+            table.string("file_path").nullable();
             table.string("file_type").notNullable();
             table.integer("file_size").notNullable();
-            table.string("file_name_disk").notNullable();
+            table.string("file_name_disk").nullable();
             table.integer("width").nullable();
             table.integer("height").nullable();
 

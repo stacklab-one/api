@@ -16,6 +16,14 @@ Router.group(() => {
     })
         .prefix("/auth")
         .as("auth");
+
+    Router.group(() => {
+        Router.post("/", "v1/MediaController.index").as("index");
+        Router.get("/:mediaId", "v1/MediaController.view").as("view");
+        Router.get("/:mediaId/show", "v1/MediaController.show").as("show");
+    })
+        .prefix("/medias")
+        .as("media");
 })
     .prefix("/api/v1")
     .as("api.v1");

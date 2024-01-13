@@ -1,8 +1,10 @@
 import { DateTime } from "luxon";
-import { BaseModel, column } from "@ioc:Adonis/Lucid/Orm";
+import { BaseModel, column, computed } from "@ioc:Adonis/Lucid/Orm";
 import { MediaContext } from "App/Enums/MediaContext";
 
 export default class Media extends BaseModel {
+    public static table = "medias";
+
     @column({ isPrimary: true })
     public id: string;
 
@@ -35,4 +37,9 @@ export default class Media extends BaseModel {
 
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime;
+
+    @computed()
+    public get location() {
+        return `${this.filePath}/${this.fileNameDisk}`;
+    }
 }
