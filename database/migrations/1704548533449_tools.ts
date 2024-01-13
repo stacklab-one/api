@@ -11,7 +11,6 @@ export default class extends BaseSchema {
             table.string("repository_url").nullable();
             table.string("documentation_url").nullable();
             table.string("description").nullable();
-            table.jsonb("tags").notNullable().defaultTo("[]");
             table.boolean("has_free_version").nullable();
             table.boolean("is_self_hostable").nullable();
             table.jsonb("og_data").nullable();

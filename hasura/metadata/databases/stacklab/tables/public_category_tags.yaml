@@ -1,0 +1,15 @@
+table:
+  name: category_tags
+  schema: public
+select_permissions:
+  - role: PUBLIC
+    permission:
+      columns:
+        - creation_type
+        - created_at
+        - updated_at
+        - category_id
+        - id
+        - tag_id
+      filter: {}
+    comment: ""

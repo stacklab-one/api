@@ -48,7 +48,6 @@ select_permissions:
         - name
         - og_data
         - repository_url
-        - tags
         - updated_at
         - updated_by
         - website_url

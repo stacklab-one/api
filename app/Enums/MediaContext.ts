@@ -1,0 +1,10 @@
+export enum MediaContext {
+    PROFILE_PICTURE = 0,
+    TOOL_ICON = 1,
+    TOOL_BACKGROUND = 2,
+    CATEGORY_ICON = 3,
+    CATEGORY_BACKGROUND = 4,
+    ARTICLE_THUMBNAIL = 5,
+    ARTICLE_IMAGE = 6,
+    OTHER = 7,
+}

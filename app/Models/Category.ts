@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { BaseModel, HasMany, column, hasMany } from "@ioc:Adonis/Lucid/Orm";
 import CategoryTool from "./CategoryTool";
+import CategoryTag from "./CategoryTag";
 
 export default class Category extends BaseModel {
     @column({ isPrimary: true })
@@ -12,9 +13,6 @@ export default class Category extends BaseModel {
     @column()
     public description: string;
 
-    @column()
-    public tags: string[];
-
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime;
 
@@ -23,4 +21,7 @@ export default class Category extends BaseModel {
 
     @hasMany(() => CategoryTool)
     public categoryTool: HasMany<typeof CategoryTool>;
+
+    @hasMany(() => CategoryTag)
+    public categoryTags: HasMany<typeof CategoryTag>;
 }

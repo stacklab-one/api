@@ -1,0 +1,15 @@
+table:
+  name: tool_tags
+  schema: public
+select_permissions:
+  - role: PUBLIC
+    permission:
+      columns:
+        - creation_type
+        - created_at
+        - updated_at
+        - id
+        - tag_id
+        - tool_id
+      filter: {}
+    comment: ""

@@ -1,0 +1,13 @@
+table:
+  name: tags
+  schema: public
+select_permissions:
+  - role: PUBLIC
+    permission:
+      columns:
+        - tag
+        - created_at
+        - updated_at
+        - id
+      filter: {}
+    comment: ""

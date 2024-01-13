@@ -17,5 +17,8 @@ export default class extends BaseSeeder {
         await this.runSeeder(await import("../Tool"));
         await this.runSeeder(await import("../Category"));
         await this.runSeeder(await import("../CategoryTool"));
+        await this.runSeeder(await import("../Tag"));
+        await this.runSeeder(await import("../ToolTag"));
+        await this.runSeeder(await import("../CategoryTag"));
     }
 }
