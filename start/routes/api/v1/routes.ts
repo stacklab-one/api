@@ -24,6 +24,13 @@ Router.group(() => {
     })
         .prefix("/medias")
         .as("media");
+
+    Router.group(() => {
+        Router.get("/redirect", "v1/GithubController.redirect").as("redirect");
+        Router.get("/callback", "v1/GithubController.callback").as("callback");
+    })
+        .prefix("/github")
+        .as("github");
 })
     .prefix("/api/v1")
     .as("api.v1");

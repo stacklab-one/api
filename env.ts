@@ -29,4 +29,15 @@ export default Env.rules({
     PG_DB_NAME: Env.schema.string(),
 
     GITHUB_TOKEN: Env.schema.string(),
+
+    JWT_PRIVATE_KEY: Env.schema.string(),
+    JWT_PUBLIC_KEY: Env.schema.string(),
+
+    GITHUB_CLIENT_ID: Env.schema.string(),
+    GITHUB_CLIENT_SECRET: Env.schema.string(),
+
+    GOOGLE_CLIENT_ID: Env.schema.string(),
+    GOOGLE_CLIENT_SECRET: Env.schema.string(),
+
+    BACKEND_URL: Env.schema.string(),
 });
