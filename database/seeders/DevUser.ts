@@ -12,6 +12,8 @@ export default class DevUserSeeder extends BaseSeeder {
             await UserFactory.merge([
                 {
                     username: "simon",
+                    firstName: "Simon",
+                    lastName: "Schwedes",
                     email: "simon@stacklab.one",
                     authLevel: AuthLevel.SUPER_ADMIN,
                 },

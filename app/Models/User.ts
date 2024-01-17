@@ -10,6 +10,12 @@ export default class User extends BaseModel {
     public id: string;
 
     @column()
+    public firstName: string;
+
+    @column()
+    public lastName: string;
+
+    @column()
     public username: string;
 
     @column()
@@ -25,7 +31,16 @@ export default class User extends BaseModel {
     public rememberMeToken: string;
 
     @column()
+    public provider: string;
+
+    @column()
+    public externalId: string;
+
+    @column()
     public profilePictureId: string;
+
+    @column()
+    public profilePictureUrl: string;
 
     @hasOne(() => Media)
     public profilePicture: HasOne<typeof Media>;

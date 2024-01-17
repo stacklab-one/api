@@ -9,6 +9,8 @@ export default Factory.define(User, async ({ faker }) => {
 
     return {
         //
+        firstName: faker.person.firstName(),
+        lastName: faker.person.lastName(),
         username,
         email: `simon+${username}@stacklab.one`,
         password: await Hash.make("1234"),

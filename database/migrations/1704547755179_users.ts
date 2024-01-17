@@ -9,11 +9,16 @@ export default class extends BaseSchema {
 
         this.schema.createTable(this.tableName, (table) => {
             table.uuid("id").primary().defaultTo(this.raw("uuid_generate_v4()"));
+            table.string("first_name").nullable();
+            table.string("last_name").nullable();
             table.string("username").notNullable().unique();
             table.string("email").notNullable().unique();
-            table.string("password").notNullable();
+            table.string("password").nullable();
             table.integer("auth_level").notNullable().defaultTo(AuthLevel.USER);
             table.string("remember_me_token").nullable();
+            table.string("provider").nullable();
+            table.string("external_id").nullable().unique();
+            table.string("profile_picture_url").nullable();
 
             /**
              * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

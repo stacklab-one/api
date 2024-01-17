@@ -27,7 +27,7 @@ const allyConfig: AllyConfig = {
         driver: "github",
         clientId: Env.get("GITHUB_CLIENT_ID"),
         clientSecret: Env.get("GITHUB_CLIENT_SECRET"),
-        callbackUrl: `${Env.get("BACKEND_URL")}/github/callback`,
+        callbackUrl: `${Env.get("BACKEND_URL")}/api/v1/github/callback`,
     },
     /*
 	|--------------------------------------------------------------------------
