@@ -26,17 +26,16 @@ export interface RepositoryResult {
 }
 
 export class RepositoryService {
-    public static async getRepositoryData(url: string): Promise<RepositoryResult> {
+    public static async getRepositoryData(url: string): Promise<RepositoryResult | null> {
         if (url.startsWith("https://github.com")) {
             return this.getGithubRepositoryData(url);
         } else if (url.startsWith("https://gitlab.com")) {
             return this.getGitLabRepositoryData(url);
         }
-        return this.returnErrorResult();
+        return null;
     }
 
-    private static async getGithubRepositoryData(url: string): Promise<RepositoryResult> {
-        Logger.info("Getting GitHub repository data for %s", url);
+    private static async getGithubRepositoryData(url: string): Promise<RepositoryResult | null> {
         try {
             const [owner, repo] = url.split("/").slice(-2);
             const repositoryRequest = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
@@ -61,7 +60,7 @@ export class RepositoryService {
                 incident.description = `Repository ${url} not found`;
                 incident.data = { url };
                 await incident.save();
-                return this.returnErrorResult();
+                return null;
             }
 
             return {
@@ -85,11 +84,11 @@ export class RepositoryService {
             };
         } catch (e) {
             Logger.error(e);
-            return this.returnErrorResult();
+            return null;
         }
     }
 
-    private static async getGitLabRepositoryData(url: string): Promise<RepositoryResult> {
+    private static async getGitLabRepositoryData(url: string): Promise<RepositoryResult | null> {
         Logger.info("Getting GitLab repository data for %s", url);
         try {
             const gitlab = new Gitlab({
@@ -118,7 +117,7 @@ export class RepositoryService {
             };
         } catch (e) {
             Logger.error(e);
-            return this.returnErrorResult();
+            return null;
         }
     }
 

@@ -1,0 +1,15 @@
+meta {
+  name: calculate scores
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{host}}/api/v1/internals/calculateScores
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

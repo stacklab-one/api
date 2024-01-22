@@ -40,4 +40,7 @@ export default Env.rules({
     GOOGLE_CLIENT_SECRET: Env.schema.string(),
 
     BACKEND_URL: Env.schema.string(),
+
+    MEILI_HOST: Env.schema.string(),
+    MEILI_MASTER_KEY: Env.schema.string(),
 });

@@ -20,7 +20,7 @@ export default class Category extends BaseModel {
     public updatedAt: DateTime;
 
     @hasMany(() => CategoryTool)
-    public categoryTool: HasMany<typeof CategoryTool>;
+    public categoryTools: HasMany<typeof CategoryTool>;
 
     @hasMany(() => CategoryTag)
     public categoryTags: HasMany<typeof CategoryTag>;

@@ -1,0 +1,15 @@
+meta {
+  name: hydrateToolsSearchIndex
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{host}}/api/v1/internals/hydrateToolSearchIndex
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}

@@ -4,7 +4,7 @@ import ToolEntity from "App/Models/Tool";
 import Event from "@ioc:Adonis/Core/Event";
 import ToolData from "App/Models/ToolData";
 import { DateTime } from "luxon";
-
+import { HydrationService } from "App/Services/HydrationService";
 export default class Tool {
     public async onHydrateTool(options: EventsList["hydrate:tool"]) {
         const tool = await ToolEntity.find(options.toolId);
@@ -14,14 +14,15 @@ export default class Tool {
         }
         const repositoryData = await tool.getRepositoryData();
         if (!repositoryData) {
-            Logger.error(`Repository Data for Tool ${options.toolId} not found`);
             return;
         }
+
         const toolData = new ToolData();
         toolData.toolId = tool.id;
         toolData.stars = repositoryData.stars;
         toolData.forks = repositoryData.forks;
         toolData.openIssues = repositoryData.openIssues;
+
         await toolData.save();
         tool.hydratedAt = DateTime.now();
         await tool.save();
@@ -39,10 +40,24 @@ export default class Tool {
     }
 
     public async onCalculateScore(options: EventsList["calculate:score"]) {
-        Logger.info(`Calculate Score for ${options.toolId}`);
+        const tool = await ToolEntity.find(options.toolId);
+        if (!tool) {
+            return;
+        }
+        const score = await HydrationService.calculateToolScore(tool);
+        Logger.info(`Score for ${tool.name}: ${score} -- (${tool.id})`);
     }
 
     public async onCalculateScores(options: EventsList["calculate:scores"]) {
         Logger.info(`Calculate Scores`);
+        const tools = await ToolEntity.query().select("id").exec();
+        for (const tool of tools) {
+            await Event.emit("calculate:score", { user: options.user, toolId: tool.id });
+        }
+    }
+
+    public async onHydrateSearchIndex() {
+        Logger.info("Hydrate Tool Search Index");
+        HydrationService.hydrateToolSearchIndex();
     }
 }

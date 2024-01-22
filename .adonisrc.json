@@ -16,7 +16,14 @@
     "preloads": [
         "./start/routes",
         "./start/kernel",
-        "./start/events"
+        "./start/events",
+        {
+            "file": "./start/search",
+            "environment": [
+                "web",
+                "test"
+            ]
+        }
     ],
     "providers": [
         "./providers/AppProvider",

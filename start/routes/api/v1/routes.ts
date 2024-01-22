@@ -6,6 +6,8 @@ Router.group(() => {
         Router.post("/hydrateTool/:toolId", "v1/InternalsController.hydrateTool").as("hydrateTool");
         Router.post("/calculateScores", "v1/InternalsController.calculateScores").as("calculateScores");
         Router.post("/calculateScore/:toolId", "v1/InternalsController.calculateScore").as("calculateScore");
+        Router.post("/hydrateToolSearchIndex", "v1/InternalsController.hydrateToolSearchIndex").as("hydrateToolSearchIndex");
+        Router.post("/hydrateCategorySearchIndex", "v1/InternalsController.hydrateCategorySearchIndex").as("hydrateCategorySearchIndex");
     })
         .prefix("/internals")
         .as("internals")

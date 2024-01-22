@@ -2,7 +2,6 @@ import { DateTime } from "luxon";
 import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from "@ioc:Adonis/Lucid/Orm";
 import ToolData from "./ToolData";
 import User from "./User";
-import Category from "./Category";
 import CategoryTool from "./CategoryTool";
 import { RepositoryResult, RepositoryService } from "App/Services/RepositoryService";
 import ToolTag from "./ToolTag";
