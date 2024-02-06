@@ -19,4 +19,9 @@ export default class AuthController {
             return response.badRequest({ message: "Invalid credentials" });
         }
     }
+
+    public async logout({ response }: HttpContextContract) {
+        response.clearCookie("token");
+        return response.ok({ message: "Successfully logged out" });
+    }
 }

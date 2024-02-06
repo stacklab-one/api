@@ -15,6 +15,7 @@ Router.group(() => {
 
     Router.group(() => {
         Router.post("/login", "v1/AuthController.login").as("login").middleware("auth:basic");
+        Router.post("/logout", "v1/AuthController.logout").as("logout").middleware("auth:jwt");
     })
         .prefix("/auth")
         .as("auth");
