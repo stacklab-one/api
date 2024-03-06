@@ -68,6 +68,7 @@
         "axios": "^1.6.5",
         "luxon": "^3.4.4",
         "meilisearch": "^0.37.0",
+        "mime": "^4.0.1",
         "pg": "^8.11.3",
         "proxy-addr": "^2.0.7",
         "reflect-metadata": "^0.1.14",

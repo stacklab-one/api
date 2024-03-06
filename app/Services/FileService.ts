@@ -4,6 +4,8 @@ import { MediaContext } from "App/Enums/MediaContext";
 import Incident from "App/Models/Incident";
 import Media from "App/Models/Media";
 import Logger from "@ioc:Adonis/Core/Logger";
+import fs from "fs";
+import mime from "mime";
 
 export class FileService {
     public static async uploadFile(file: MultipartFileContract, context: MediaContext): Promise<Media> {
@@ -14,7 +16,7 @@ export class FileService {
         media.context = context;
         media = await media.save();
         media.fileNameDisk = `${media.id}.${file.extname}`;
-        media.filePath = `${media.createdAt.year}/${media.createdAt.month}/${media.createdAt.day}`;
+        media.filePath = `${media.createdAt.year}/${media.createdAt.month}/${media.createdAt.day}/${media.createdAt.hour}/${media.createdAt.minute}`;
         await media.save();
         file.moveToDisk(
             media.filePath,
@@ -36,5 +38,19 @@ export class FileService {
             incident.save();
         });
         return media;
+    }
+
+    public static async uploadFileByPath(filePath: string, context: MediaContext): Promise<Media> {
+        let media = new Media();
+        const fileExt = filePath.split(".").pop() ?? "";
+        media.fileName = filePath.split("/").pop() ?? "unknown";
+        media.context = context;
+        media.fileType = mime.getType(filePath) ?? "text/plain";
+        const fileStats = fs.statSync(filePath);
+        media.fileSize = fileStats.size;
+        media = await media.save();
+        media.filePath = `${media.createdAt.year}/${media.createdAt.month}/${media.createdAt.day}/${media.createdAt.hour}/${media.createdAt.minute}`;
+        media.fileNameDisk = `${media.id}.${fileExt}`;
+        await media.save();
     }
 }
