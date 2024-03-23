@@ -51,6 +51,7 @@ export class FileService {
         media = await media.save();
         media.filePath = `${media.createdAt.year}/${media.createdAt.month}/${media.createdAt.day}/${media.createdAt.hour}/${media.createdAt.minute}`;
         media.fileNameDisk = `${media.id}.${fileExt}`;
-        await media.save();
+        media = await media.save();
+        return media;
     }
 }

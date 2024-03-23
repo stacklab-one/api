@@ -13,7 +13,7 @@ export default class AuthController {
                 throw new Error("Invalid credentials");
             }
             const token = await auth.use("jwt").login(user);
-            return response.ok(token.toJSON());
+            return response.ok(token.accessToken);
         } catch (error) {
             Logger.error(error);
             return response.badRequest({ message: "Invalid credentials" });

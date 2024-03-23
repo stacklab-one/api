@@ -28,12 +28,11 @@ export default class GithubController {
             const foundUser = await User.findBy("external_id", githubUser.id);
             if (foundUser) {
                 const token = await auth.use("jwt").login(foundUser);
-                console.log("token:", token.accessToken);
-                response.cookie("token", token.accessToken, {
+                response.plainCookie("token", token.accessToken, {
                     domain: "localhost",
                     httpOnly: false,
                 });
-                return response.redirect("http://localhost:3000");
+                return response.redirect("http://localhost:3000/account");
             }
             let user = new User();
             if (githubUser.email) {
@@ -56,11 +55,11 @@ export default class GithubController {
                 user = await user.save();
                 const token = await auth.use("jwt").login(user);
                 console.log(token.accessToken);
-                response.cookie("token", token.accessToken, {
+                response.plainCookie("token", token.accessToken, {
                     domain: "localhost",
                     httpOnly: false,
                 });
-                return response.redirect("http://localhost:3000");
+                return response.redirect("http://localhost:3000/account");
             }
             return response.badRequest("No email provided!");
         } catch (e) {

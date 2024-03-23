@@ -247,6 +247,9 @@ const authConfig: AuthConfig = {
                 uids: [],
                 model: () => import("App/Models/User"),
             },
+            getBearerToken: (ctx) => {
+                return ctx.request.cookie("token");
+            },
         },
     },
 };
