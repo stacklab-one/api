@@ -1,0 +1,12 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+      target: development
+    container_name: api
+    command: bun dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/src/app
