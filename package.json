@@ -1,5 +1,6 @@
 {
-    "name": "api",
+    "name": "stacklab-one-api",
+    "version": "v0.0.1",
     "scripts": {
         "dev": "bun run --hot src/index.ts"
     },
