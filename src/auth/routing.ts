@@ -1,13 +1,7 @@
 import { Hono } from "hono";
 import { jwt, sign } from "hono/jwt";
 import { getJwtSecret } from "./util";
-import {
-    getCookie,
-    getSignedCookie,
-    setCookie,
-    setSignedCookie,
-    deleteCookie,
-} from "hono/cookie";
+import { setCookie } from "hono/cookie";
 
 export const authModule = new Hono();
 

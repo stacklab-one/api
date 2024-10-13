@@ -3,12 +3,14 @@ import { db } from "./db";
 import { authModule } from "./auth/routing";
 import packageJson from "../package.json";
 
+console.log(new Date().toISOString(), "Starting the server...");
+
 const app = new Hono();
 
 app.get("/", async (c) => {
-    console.log(packageJson);
     return c.json({
         version: packageJson.version,
+        users: await db.query.user.findMany(),
     });
 });
 
