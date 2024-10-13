@@ -68,7 +68,7 @@ services:
     networks:
       - stacklab-api-network
     volumes:
-      - ./data.ms:/data.ms
+      - ./data:/data.ms
     restart: unless-stopped
 
 volumes:
