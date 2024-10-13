@@ -1,0 +1,1 @@
+bunx drizzle-kit studio --config=studio-drizzle.config.ts

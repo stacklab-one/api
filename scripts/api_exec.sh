@@ -1,0 +1,1 @@
+docker compose -p stacklab exec api bash
