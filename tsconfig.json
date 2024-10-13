@@ -2,6 +2,9 @@
   "compilerOptions": {
     "strict": true,
     "jsx": "react-jsx",
-    "jsxImportSource": "hono/jsx"
+    "jsxImportSource": "hono/jsx",
+    "module": "Preserve",
+    "target": "ES2023",
+    "moduleResolution": "Bundler"
   }
 }

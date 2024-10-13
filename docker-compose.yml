@@ -1,3 +1,4 @@
+name: "stacklab"
 services:
   api:
     build:
@@ -28,7 +29,7 @@ services:
     networks:
       - stacklab-api-network
     volumes:
-      - /var/lib/postgres
+      - db:/var/lib/postgres
       - ./scripts/database:/docker-entrypoint-initdb.d
   storage:
     image: minio/minio:latest
@@ -72,6 +73,7 @@ services:
 
 volumes:
   storage:
+  db:
 
 networks:
   stacklab-api-network:
