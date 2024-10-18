@@ -8,12 +8,14 @@
         "dotenv": "^16.4.5",
         "drizzle-orm": "^0.34.1",
         "hono": "^4.6.4",
+        "luxon": "^3.5.0",
         "node-postgres": "^0.6.2",
         "pg": "^8.13.0"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.3",
         "@types/bun": "latest",
+        "@types/luxon": "^3.4.2",
         "@types/pg": "^8.11.10",
         "drizzle-kit": "^0.25.0",
         "tsx": "^4.19.1"

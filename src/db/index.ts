@@ -6,7 +6,7 @@ import { getDatabaseURL } from "./util";
 const db = await drizzle("node-postgres", {
     connection: getDatabaseURL(),
     schema,
-    casing: "camelCase",
+    casing: "snake_case",
 });
 
 export { db, schema };

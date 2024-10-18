@@ -9,6 +9,7 @@ import {
     timestamp,
     text,
     json,
+    bigint,
 } from "drizzle-orm/pg-core";
 import { relations, sql } from "drizzle-orm";
 import { AuthLevel } from "../enums/AuthLevel";
@@ -26,6 +27,7 @@ export const user = pgTable(
         isActive: boolean().notNull().default(true),
         externalId: varchar({ length: 255 }),
         profilePictureUrl: varchar({ length: 255 }),
+        portraitId: uuid().references(() => media.id),
 
         createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
         updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
@@ -49,7 +51,7 @@ export const tool = pgTable(
         repositoryUrl: varchar({ length: 255 }),
         registryUrl: varchar({ length: 255 }),
         tags: json().notNull().default([]),
-        icon: uuid(),
+        icon: uuid().references(() => media.id),
         backgroundImage: uuid(),
         hasFreeVersion: boolean().notNull().default(false),
         hasPaidVersion: boolean().notNull().default(false),
@@ -89,6 +91,7 @@ export const toolSnapshot = pgTable(
 export const toolRelations = relations(tool, ({ many }) => {
     return {
         snapshots: many(toolSnapshot),
+        categoryToolConnections: many(categoryToolConnections)
     };
 });
 
@@ -104,9 +107,48 @@ export const category = pgTable(
         id: uuid().primaryKey().default(sql`uuid_generate_v4()`),
         title: varchar({ length: 255 }).notNull(),
         tags: json().notNull().default([]),
-        icon: uuid(),
+        icon: uuid().references(() => media.id),
     },
     (table) => {
         return {};
     },
 );
+
+export const media = pgTable("media",
+    {
+        id: uuid().primaryKey().default(sql`uuid_generate_v4()`),
+        fileName: varchar({ length: 255 }).notNull(),
+        fileType: varchar({ length: 8 }).notNull(),
+        fileSize: bigint({mode: "bigint"}),
+        fileHash: varchar({ length: 255 }).notNull(),
+        location: varchar({ length: 255 }).notNull(),
+    }
+);
+
+export const categoryToolConnections = pgTable("category_tool_connection", {
+    id: uuid().primaryKey().default(sql`uuid_generate_v4()`),
+    categoryId: uuid().notNull().references(() => category.id),
+    toolId: uuid().notNull().references(() => tool.id),
+});
+
+export const categoryRelations = relations(category, ({ many }) => {
+    return {
+        toolConnections: many(categoryToolConnections),
+    };
+});
+
+export const categoryToolConnectionsRelations = relations(categoryToolConnections, ({ one }) => {
+    return {
+        category: one(category),
+        tool: one(tool),
+    };
+});
+
+export default {
+    user,
+    tool,
+    toolSnapshot,
+    category,
+    media,
+    categoryToolConnections
+}

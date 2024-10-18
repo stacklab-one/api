@@ -5,22 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1728801227541,
-      "tag": "0000_stormy_zombie",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1728849640909,
-      "tag": "0001_flat_punisher",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1728849749882,
-      "tag": "0002_minor_lockjaw",
+      "when": 1729267535588,
+      "tag": "0000_gifted_dagger",
       "breakpoints": true
     }
   ]
