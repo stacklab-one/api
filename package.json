@@ -2,15 +2,23 @@
     "name": "stacklab-one-api",
     "version": "v0.0.1",
     "scripts": {
-        "dev": "bun run --hot src/index.ts -v"
+        "dev": "bun run --hot src/index.ts -v | bunx pino-pretty",
+        "seed": "bun run scripts/database/_wipe.ts | bunx pino-pretty && bun run scripts/database/seed.ts | bunx pino-pretty",
+        "drizzle:generate": "bunx drizzle-kit generate",
+        "drizzle:migrate": "bunx drizzle-kit migrate",
+        "meili:rebuild": "bun run scripts/meilisearch/_rebuild.ts | bunx pino-pretty",
+        "meili:hydrate": "bun run scripts/meilisearch/_hydrate.ts | bunx pino-pretty"
     },
     "dependencies": {
+        "@faker-js/faker": "^9.0.3",
         "dotenv": "^16.4.5",
         "drizzle-orm": "^0.34.1",
         "hono": "^4.6.4",
         "luxon": "^3.5.0",
+        "meilisearch": "^0.44.1",
         "node-postgres": "^0.6.2",
-        "pg": "^8.13.0"
+        "pg": "^8.13.0",
+        "pino": "^9.5.0"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.3",
