@@ -6,6 +6,10 @@ services:
       dockerfile: .docker/Dockerfile
       target: development
     container_name: api
+    depends_on:
+      - postgres
+      - storage
+      - meilisearch
     env_file:
       - .env
     command: bun dev
@@ -46,8 +50,8 @@ services:
       - MINIO_ROOT_USER=${MINIO_ROOT_USER}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
     ports:
-      - 9000:9000
-      - 9001:9001
+      - 9008:9000
+      - 9081:9001
     volumes:
       - storage:/var/lib/minio/data
     networks:
