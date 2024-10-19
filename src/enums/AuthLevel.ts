@@ -1,5 +1,5 @@
 export enum AuthLevel {
     PUBLC = 0,
-    LOGGED_IN = 1,
+    USER = 1,
     ADMIN = 1024,
 }

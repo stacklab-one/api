@@ -1,28 +1,18 @@
-import { hash } from "bun";
-import { db, schema } from "../../src/db";
-import { AuthLevel } from "../../src/enums/AuthLevel";
+import { seed as userSeed } from "@/db/seeder/user";
+import { seed as toolSeed } from "@/db/seeder/tool";
+import { seed as categorySeed } from "@/db/seeder/category";
+import { logger } from "../../src/setup/logger";
 
-import "./_wipe";
-console.log("Seeding the database....");
-
-console.log("Creating admin users...");
-await db.insert(schema.user).values({
-    email: "simon@stacklab.one",
-    firstName: "Simon",
-    lastName: "Schwedes",
-    username: "simon",
-    authLevel: AuthLevel.ADMIN,
-    isActive: true,
-    password: await Bun.password.hash("changeme", "bcrypt"),
-});
-
-await db.insert(schema.user).values({
-    email: "pascal@stacklab.one",
-    firstName: "Pascal",
-    lastName: "Haupt",
-    username: "pascal",
-    authLevel: AuthLevel.ADMIN,
-    isActive: true,
-    password: await Bun.password.hash("changeme", "bcrypt"),
-});
-console.log("Created admin users.");
+if (
+    Bun.env.NODE_ENV !== "development" &&
+    Bun.env.NODE_ENV?.toString() !== "test"
+) {
+    throw new Error(
+        "This script must be run in development or test environment.",
+    );
+}
+logger.info("Seeding the database....");
+await userSeed();
+await toolSeed();
+await categorySeed();
+logger.info("Seeded the database.");

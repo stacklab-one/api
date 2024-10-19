@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/connect";
 import * as schema from "./schema";
-import { getDatabaseURL } from "./util";
+import { getDatabaseURL } from "@/db/util";
 
 const db = await drizzle("node-postgres", {
     connection: getDatabaseURL(),

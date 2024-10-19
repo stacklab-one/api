@@ -12,7 +12,7 @@ import {
     bigint,
 } from "drizzle-orm/pg-core";
 import { relations, sql } from "drizzle-orm";
-import { AuthLevel } from "../enums/AuthLevel";
+import { AuthLevel } from "@/enums/AuthLevel";
 
 export const user = pgTable(
     "user",
@@ -23,7 +23,7 @@ export const user = pgTable(
         username: varchar({ length: 255 }).notNull(),
         email: varchar({ length: 255 }).notNull(),
         password: varchar({ length: 255 }),
-        authLevel: integer().notNull().default(AuthLevel.LOGGED_IN),
+        authLevel: integer().notNull().default(AuthLevel.USER),
         isActive: boolean().notNull().default(true),
         externalId: varchar({ length: 255 }),
         profilePictureUrl: varchar({ length: 255 }),
@@ -44,13 +44,14 @@ export const tool = pgTable(
     "tool",
     {
         id: uuid().primaryKey().default(sql`uuid_generate_v4()`),
-        title: varchar({ length: 255 }).notNull(),
+        name: varchar({ length: 255 }).notNull(),
         descriptionShort: varchar({ length: 255 }).notNull(),
         description: text().notNull(),
         url: varchar({ length: 255 }).notNull(),
         repositoryUrl: varchar({ length: 255 }),
         registryUrl: varchar({ length: 255 }),
         tags: json().notNull().default([]),
+        iconText: varchar({ length: 255 }),
         icon: uuid().references(() => media.id),
         backgroundImage: uuid(),
         hasFreeVersion: boolean().notNull().default(false),
@@ -61,6 +62,8 @@ export const tool = pgTable(
         updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
         deletedAt: timestamp({ withTimezone: true }).default(sql`NULL`),
         languages: json().notNull().default([]),
+        license: varchar({ length: 255 }),
+        licenseUrl: varchar({ length: 255 }),
     },
     (table) => {
         return {};
@@ -91,7 +94,7 @@ export const toolSnapshot = pgTable(
 export const toolRelations = relations(tool, ({ many }) => {
     return {
         snapshots: many(toolSnapshot),
-        categoryToolConnections: many(categoryToolConnections)
+        categoryToolConnections: many(categoryToolConnections),
     };
 });
 
@@ -105,7 +108,7 @@ export const category = pgTable(
     "category",
     {
         id: uuid().primaryKey().default(sql`uuid_generate_v4()`),
-        title: varchar({ length: 255 }).notNull(),
+        name: varchar({ length: 255 }).notNull(),
         tags: json().notNull().default([]),
         icon: uuid().references(() => media.id),
     },
@@ -114,21 +117,23 @@ export const category = pgTable(
     },
 );
 
-export const media = pgTable("media",
-    {
-        id: uuid().primaryKey().default(sql`uuid_generate_v4()`),
-        fileName: varchar({ length: 255 }).notNull(),
-        fileType: varchar({ length: 8 }).notNull(),
-        fileSize: bigint({mode: "bigint"}),
-        fileHash: varchar({ length: 255 }).notNull(),
-        location: varchar({ length: 255 }).notNull(),
-    }
-);
+export const media = pgTable("media", {
+    id: uuid().primaryKey().default(sql`uuid_generate_v4()`),
+    fileName: varchar({ length: 255 }).notNull(),
+    fileType: varchar({ length: 8 }).notNull(),
+    fileSize: bigint({ mode: "bigint" }),
+    fileHash: varchar({ length: 255 }).notNull(),
+    location: varchar({ length: 255 }).notNull(),
+});
 
 export const categoryToolConnections = pgTable("category_tool_connection", {
     id: uuid().primaryKey().default(sql`uuid_generate_v4()`),
-    categoryId: uuid().notNull().references(() => category.id),
-    toolId: uuid().notNull().references(() => tool.id),
+    categoryId: uuid()
+        .notNull()
+        .references(() => category.id),
+    toolId: uuid()
+        .notNull()
+        .references(() => tool.id),
 });
 
 export const categoryRelations = relations(category, ({ many }) => {
@@ -137,12 +142,15 @@ export const categoryRelations = relations(category, ({ many }) => {
     };
 });
 
-export const categoryToolConnectionsRelations = relations(categoryToolConnections, ({ one }) => {
-    return {
-        category: one(category),
-        tool: one(tool),
-    };
-});
+export const categoryToolConnectionsRelations = relations(
+    categoryToolConnections,
+    ({ one }) => {
+        return {
+            category: one(category),
+            tool: one(tool),
+        };
+    },
+);
 
 export default {
     user,
@@ -150,5 +158,5 @@ export default {
     toolSnapshot,
     category,
     media,
-    categoryToolConnections
-}
+    categoryToolConnections,
+};
