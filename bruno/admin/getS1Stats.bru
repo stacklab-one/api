@@ -1,0 +1,15 @@
+meta {
+  name: getS1Stats
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{host}}/admin/s1-stats
+  body: none
+  auth: bearer
+}
+
+headers {
+  Cookie: {{authCookie}}
+}

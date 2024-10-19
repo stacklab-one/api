@@ -5,7 +5,20 @@ meta {
 }
 
 post {
-  url: {{url}}/auth/login
-  body: none
+  url: {{host}}/auth/login
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "username": "{{username}}",
+    "password": "{{password}}"
+  }
+}
+
+script:post-response {
+  const cookies = res.getHeader("set-cookie")[0];
+  
+  bru.setEnvVar("authCookie",cookies);
 }
