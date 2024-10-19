@@ -16,6 +16,7 @@ COPY package.json bun.lockb /temp/prod/
 RUN cd /temp/prod && bun install --frozen-lockfile --production
 
 FROM base AS development
+RUN apt update && apt upgrade -y
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
