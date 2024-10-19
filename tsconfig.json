@@ -5,6 +5,9 @@
     "jsxImportSource": "hono/jsx",
     "module": "Preserve",
     "target": "ES2023",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "paths": {
+        "@/*": ["./src/*"],
+    }
   }
 }
