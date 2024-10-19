@@ -1,0 +1,1 @@
+ALTER TABLE "category" RENAME COLUMN "title" TO "name";

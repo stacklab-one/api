@@ -1,0 +1,1 @@
+ALTER TABLE "tool" ADD COLUMN "icon_text" varchar(255);

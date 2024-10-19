@@ -1,0 +1,1 @@
+ALTER TABLE "tool" RENAME COLUMN "title" TO "name";
